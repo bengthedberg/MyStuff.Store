@@ -1,0 +1,6 @@
+@MyStuff.Stores.API_HostAddress = http://localhost:7001
+
+GET {{MyStuff.Stores.API_HostAddress}}/stores/
+Accept: application/json
+
+###
