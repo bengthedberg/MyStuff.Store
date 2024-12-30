@@ -24,7 +24,6 @@ public class ServiceController : Controller
         return Ok(await _context.Services.ToListAsync<Service>());
     }
     
-    
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(Service), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,6 +34,15 @@ public class ServiceController : Controller
         return service is null
             ? NotFound()
             : Ok(service);
+    }
+    
+    [HttpGet("{serviceType}")]
+    [ProducesResponseType(typeof(List<Service>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromRoute] ServiceType serviceType)
+    {
+        var service = await _context.Services.Where(s => s.Type == serviceType).ToListAsync();
+
+        return Ok(service);
     }
     
     [HttpPost]

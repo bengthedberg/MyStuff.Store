@@ -16,4 +16,13 @@ public class StoresContext : DbContext
         optionsBuilder.LogTo(Console.WriteLine);
         base.OnConfiguring(optionsBuilder);
     }
+
+    // OnModelCreating - Allows you to define relationships, constraints, and model configurations
+    // that are not defined using EF core conventions.
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoresContext).Assembly);
+        
+        base.OnModelCreating(modelBuilder);
+    }
 }

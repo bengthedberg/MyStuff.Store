@@ -46,7 +46,9 @@ public class StoresController : Controller
         // var store = await _context.Stores.SingleOrDefaultAsync(x => x.Id == id);
         
         // Same as above except will not query database if row already exists in db context.
-        var store = await _context.Stores.FindAsync(id);
+        var store = await _context.Stores
+            .Include(s => s.Service)
+            .SingleOrDefaultAsync(x => x.Id == id);
 
         return store is null
             ? NotFound()
